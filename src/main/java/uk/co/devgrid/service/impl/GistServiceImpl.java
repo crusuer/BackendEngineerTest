@@ -3,6 +3,8 @@ package uk.co.devgrid.service.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -21,6 +23,9 @@ public class GistServiceImpl implements GistService {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    HttpHeaders headers;
+
     @Override
     public List<GistComment> comments(String gistId) {
         List gistComments = new ArrayList<>();
@@ -36,10 +41,8 @@ public class GistServiceImpl implements GistService {
 
     @Override
     public Gist create(GistDTO gistDTO) {
-        //HttpEntity<String> request = new HttpEntity<String>(personJsonObject.toString(), headers);
-        //Gist createdGist = restTemplate.postForObject("https://api.github.com/gists", request, Gist.class);
-        //return createdGist;
-        LOGGER.info(gistDTO);
-        return new Gist();
+        HttpEntity<GistDTO> request = new HttpEntity<>(gistDTO, headers);
+        Gist createdGist = restTemplate.postForObject("https://api.github.com/gists", request, Gist.class);
+        return createdGist;
     }
 }
