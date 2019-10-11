@@ -13,8 +13,6 @@ import uk.co.devgrid.model.Gist;
 import uk.co.devgrid.model.GistComment;
 import uk.co.devgrid.service.GistService;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class GistServiceImpl implements GistService {
@@ -24,25 +22,23 @@ public class GistServiceImpl implements GistService {
     RestTemplate restTemplate;
 
     @Autowired
-    HttpHeaders headers;
+    HttpHeaders httpHeaders;
 
     @Override
-    public List<GistComment> comments(String gistId) {
-        List gistComments = new ArrayList<>();
+    public GistComment[] comments(String gistId) {
         try {
-            gistComments = restTemplate.getForObject(
-                    "https://api.github.com/gists/".concat(gistId).concat("/comments"), List.class);
+            return restTemplate.getForObject(
+                    "https://api.github.com/gists/".concat(gistId).concat("/comments"), GistComment[].class);
         } catch (HttpClientErrorException e) {
             LOGGER.error("Status: {}, Response: {}, StackTrace: {}, ",
                     e.getStatusCode(), e.getResponseBodyAsString(), e.getStackTrace());
         }
-        return gistComments;
+        return null;
     }
 
     @Override
     public Gist create(GistDTO gistDTO) {
-        HttpEntity<GistDTO> request = new HttpEntity<>(gistDTO, headers);
-        Gist createdGist = restTemplate.postForObject("https://api.github.com/gists", request, Gist.class);
-        return createdGist;
+        HttpEntity<GistDTO> request = new HttpEntity<>(gistDTO, httpHeaders);
+        return restTemplate.postForObject("https://api.github.com/gists", request, Gist.class);
     }
 }

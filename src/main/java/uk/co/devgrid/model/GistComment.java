@@ -1,19 +1,23 @@
 package uk.co.devgrid.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
-@Data
+@NoArgsConstructor
+@EqualsAndHashCode
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GistComment {
-    private String url;
-    private Long id;
-    private String nodeId;
-    private User user;
-    private String authorAssociation;
-    private Date createdAt;
-    private Date updatedAt;
     private String body;
+
+    @JsonProperty(value = "comment")
+    public String getBody() {
+        return body;
+    }
+
+    @JsonProperty(value = "body")
+    public void setBody(String body) {
+        this.body = body;
+    }
 }
