@@ -5,7 +5,7 @@ import uk.co.devgrid.model.Gist;
 import uk.co.devgrid.model.GistComment;
 
 public interface GistService {
-    GistComment[] comments(String gistId);
+    GistComment[] retrieveGistComments(String gistId);
 
-    Gist create(GistDTO gistDTO);
+    Gist createGist(GistDTO gistDTO);
 }

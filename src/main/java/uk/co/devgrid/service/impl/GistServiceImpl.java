@@ -19,13 +19,13 @@ public class GistServiceImpl implements GistService {
     private static final Logger LOGGER = LogManager.getLogger(GistServiceImpl.class);
 
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     @Autowired
-    HttpHeaders httpHeaders;
+    private HttpHeaders httpHeaders;
 
     @Override
-    public GistComment[] comments(String gistId) {
+    public GistComment[] retrieveGistComments(String gistId) {
         try {
             return restTemplate.getForObject(
                     "https://api.github.com/gists/".concat(gistId).concat("/comments"), GistComment[].class);
@@ -33,11 +33,11 @@ public class GistServiceImpl implements GistService {
             LOGGER.error("Status: {}, Response: {}, StackTrace: {}, ",
                     e.getStatusCode(), e.getResponseBodyAsString(), e.getStackTrace());
         }
-        return null;
+        return new GistComment[0];
     }
 
     @Override
-    public Gist create(GistDTO gistDTO) {
+    public Gist createGist(GistDTO gistDTO) {
         HttpEntity<GistDTO> request = new HttpEntity<>(gistDTO, httpHeaders);
         return restTemplate.postForObject("https://api.github.com/gists", request, Gist.class);
     }

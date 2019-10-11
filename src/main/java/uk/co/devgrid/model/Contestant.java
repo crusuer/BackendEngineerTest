@@ -1,54 +1,49 @@
 package uk.co.devgrid.model;
 
-import java.util.BitSet;
-
 public class Contestant implements Comparable<Contestant> {
 
-    private int number;
-    private BitSet problemsSolved;
-    private int penaltyTime;
+    private Integer id;
 
-    public Contestant(int number) {
-        this.number = number;
-        this.problemsSolved = new BitSet();
-        this.penaltyTime = 0;
+    private Integer problemsSolved;
+
+    private Long penaltyTime;
+
+    public Integer getId() {
+        return id;
     }
 
-    public int getNumber() {
-        return number;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public BitSet getProblemsSolved() {
+    public Integer getProblemsSolved() {
         return problemsSolved;
     }
 
-    public int getPenaltyTime() {
+    public void setProblemsSolved(Integer problemsSolved) {
+        this.problemsSolved = problemsSolved;
+    }
+
+    public Long getPenaltyTime() {
         return penaltyTime;
     }
 
-    public void addPenaltyTime(int penaltyTime) {
-        this.penaltyTime += penaltyTime;
-    }
-
-    public void addProblemSolved(int problem) {
-        problemsSolved.set(problem);
+    public void setPenaltyTime(Long penaltyTime) {
+        this.penaltyTime = penaltyTime;
     }
 
     @Override
-    public String toString() {
-        return number + " " + problemsSolved.cardinality() + " " + penaltyTime;
-    }
+    public int compareTo(Contestant o) {
 
-    @Override
-    public int compareTo(Contestant other) {
-        int i = Integer.compare(other.getProblemsSolved().cardinality(), problemsSolved.cardinality());
-        if (i != 0) return i;
+        if (getProblemsSolved() != null && o.getProblemsSolved() != null && getProblemsSolved().compareTo(o.getProblemsSolved()) > 0) {
+            return -1;
+        }
 
-        i = Integer.compare(penaltyTime, other.getPenaltyTime());
-        if (i != 0) return i;
-        
-        i = Integer.compare(number, other.getNumber());
-        return i;
+        if (getPenaltyTime() != null && o.getPenaltyTime() != null && getPenaltyTime().compareTo(o.getPenaltyTime()) < 0) {
+            return -1;
+        }
+
+        return getId().compareTo(o.getId());
     }
 
 }

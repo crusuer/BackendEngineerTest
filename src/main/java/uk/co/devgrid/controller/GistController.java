@@ -15,15 +15,15 @@ import javax.validation.Valid;
 @RestController
 public class GistController {
     @Autowired
-    GistService gistService;
+    private GistService gistService;
 
     @GetMapping(path = "/gist/{gistId}/comments", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GistComment[] comments(@PathVariable("gistId") String gistId) {
-        return gistService.comments(gistId);
+    public ResponseEntity<GistComment[]> retrieveGistComments(@PathVariable("gistId") String gistId) {
+        return ResponseEntity.ok(gistService.retrieveGistComments(gistId));
     }
 
     @PostMapping(path = "/gist/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Gist> create(@Valid @RequestBody GistDTO gistDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(gistService.create(gistDTO));
+    public ResponseEntity<Gist> createGist(@Valid @RequestBody GistDTO gistDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(gistService.createGist(gistDTO));
     }
 }
