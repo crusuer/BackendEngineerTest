@@ -7,30 +7,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import uk.co.devgrid.model.ContestantOld;
+import uk.co.devgrid.model.Contestant;
 
 public class App {
-
+/*
 	public static void down(String[] args) {
 
 		Scanner scan = new Scanner(System.in);
-		final List<List<ContestantOld>> result = new ArrayList<>();
+		final List<List<Contestant>> result = new ArrayList<>();
 
 		int cases = Integer.parseInt(scan.nextLine());
 		String input;
 
 		for (int i = 0; i < cases; i++) {
-			final Map<Integer, ContestantOld> map = new HashMap<>();
+			final Map<Integer, Contestant> map = new HashMap<>();
 			while ((input = scan.nextLine()).length() > 0) {
 				processCases(map, input);
 			}
-			List<ContestantOld> mapConverted = convertMap(map);
+			List<Contestant> mapConverted = convertMap(map);
 			result.add(mapConverted);
 		}
 		printResult(result);
 	}
 
-	public static ContestantOld processCases(Map<Integer, ContestantOld> map, String input) {
+	public static Contestant processCases(Map<Integer, Contestant> map, String input) {
 		String[] submission = input.split(" ");
 		int contestant = Integer.parseInt(submission[0]);
 		int problem = Integer.parseInt(submission[1]);
@@ -40,33 +40,33 @@ public class App {
 		if (map.containsKey(contestant)) {
 			return checkLetter(map.get(contestant), problem, time, letter);
 		} else {
-			ContestantOld contest = new ContestantOld(contestant);
+			Contestant contest = new Contestant(contestant);
 			return map.put(contestant, checkLetter(contest, problem, time, letter));
 		}
 	}
 
-	public static ContestantOld checkLetter(ContestantOld contest, int problem, int time, String letter) {
+	public static Contestant checkLetter(Contestant contest, int problem, int time, String letter) {
 		if (letter.equals("C")) {
 			contest.addProblemSolved(problem);
-			contest.addPenaltyTime(time);
+			contest.increaseTimeExpended(time);
 		} else if (letter.equals("I")) {
-			contest.addPenaltyTime(20);
+			contest.increaseTimeExpended(20);
 		}
 		return contest;
 	}
 
-	public static List<ContestantOld> convertMap(Map<Integer, ContestantOld> map) {
-		List<ContestantOld> result = new ArrayList<>(map.values());
+	public static List<Contestant> convertMap(Map<Integer, Contestant> map) {
+		List<Contestant> result = new ArrayList<>(map.values());
 		map.clear();
 		
 		Collections.sort(result);
 		return result;
 	}
 
-	public static void printResult(List<List<ContestantOld>> result) {
+	public static void printResult(List<List<Contestant>> result) {
 		result.forEach((temp) -> {
 			temp.forEach(System.out::println);
 			System.out.println();
 		});
-	}
+	}*/
 }

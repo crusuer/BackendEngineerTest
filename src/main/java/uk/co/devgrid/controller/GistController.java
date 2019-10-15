@@ -23,7 +23,7 @@ public class GistController {
     }
 
     @PostMapping(path = "/gist/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Gist> createGist(@Valid @RequestBody GistDTO gistDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(gistService.createGist(gistDTO));
+    public ResponseEntity<Gist> createGist(@Valid @RequestBody GistDTO gist) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(gistService.createGist(gist));
     }
 }

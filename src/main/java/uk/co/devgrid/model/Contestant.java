@@ -1,49 +1,26 @@
 package uk.co.devgrid.model;
 
-public class Contestant implements Comparable<Contestant> {
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-    private Integer id;
+import java.util.BitSet;
 
-    private Integer problemsSolved;
+@Getter
+@EqualsAndHashCode
+@AllArgsConstructor
+public class Contestant {
 
-    private Long penaltyTime;
+    private int number;
+    private BitSet problemsSolved = new BitSet();
+    private int timeExpended;
 
-    public Integer getId() {
-        return id;
+    public void increaseTimeExpended(int timeExpended) {
+        this.timeExpended += timeExpended;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getProblemsSolved() {
-        return problemsSolved;
-    }
-
-    public void setProblemsSolved(Integer problemsSolved) {
-        this.problemsSolved = problemsSolved;
-    }
-
-    public Long getPenaltyTime() {
-        return penaltyTime;
-    }
-
-    public void setPenaltyTime(Long penaltyTime) {
-        this.penaltyTime = penaltyTime;
-    }
-
-    @Override
-    public int compareTo(Contestant o) {
-
-        if (getProblemsSolved() != null && o.getProblemsSolved() != null && getProblemsSolved().compareTo(o.getProblemsSolved()) > 0) {
-            return -1;
-        }
-
-        if (getPenaltyTime() != null && o.getPenaltyTime() != null && getPenaltyTime().compareTo(o.getPenaltyTime()) < 0) {
-            return -1;
-        }
-
-        return getId().compareTo(o.getId());
+    public void addProblemSolved(int problem) {
+        problemsSolved.set(problem);
     }
 
 }
